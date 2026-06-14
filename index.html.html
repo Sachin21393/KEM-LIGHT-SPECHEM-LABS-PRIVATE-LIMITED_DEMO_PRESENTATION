@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KLS ERP — Product Pitch Deck</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0A1628;
+      --primary-light: #1E293B;
+      --ember: #D2622A;
+      --ember-light: #FFECE2;
+      --neutral-50: #F8FAFC;
+      --neutral-100: #F1F5F9;
+      --neutral-200: #E2E8F0;
+      --neutral-600: #475569;
+      --neutral-900: #0F172A;
+      --success-green: #10B981;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--neutral-100);
+      color: var(--neutral-900);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Presentation Wrapper */
+    .deck-container {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Slide Frame */
+    .slide-wrapper {
+      position: relative;
+      width: 92%;
+      height: 85%;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--neutral-200);
+      display: none;
+      padding: 48px;
+      overflow-y: auto;
+    }
+
+    .slide-wrapper.active {
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Top branding line */
+    .slide-accent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--ember);
+    }
+
+    /* Header styling */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--neutral-100);
+      padding-bottom: 16px;
+    }
+
+    .slide-title-group h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .slide-title-group h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ember);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    .logo-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      padding: 8px 16px;
+      border-radius: 8px;
+      color: white;
+      font-family: monospace;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Content Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      flex: 1;
+      align-items: center;
+    }
+
+    .grid-2-top {
+      display: grid;
+      grid-template-columns: 1.2fr 1.8fr;
+      gap: 36px;
+      flex: 1;
+      align-items: flex-start;
+    }
+
+    .content-left {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .screenshot-container {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      max-height: 480px;
+      border-radius: 12px;
+      border: 1px solid var(--neutral-200);
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--neutral-50);
+    }
+
+    .screenshot-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Typographic components */
+    .lead-text {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--neutral-600);
+    }
+
+    .bullet-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 28px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--neutral-600);
+    }
+
+    .bullet-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      color: var(--ember);
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    /* Table styling */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .comparison-table th {
+      background: var(--primary);
+      color: white;
+      text-align: left;
+      padding: 12px 16px;
+      font-weight: 600;
+    }
+
+    .comparison-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--neutral-200);
+      color: var(--neutral-600);
+    }
+
+    .comparison-table tr:nth-child(even) td {
+      background: var(--neutral-50);
+    }
+
+    .comparison-table tdstrong {
+      color: var(--neutral-900);
+      font-weight: 600;
+    }
+
+    .alert-banner {
+      background: var(--ember-light);
+      border-left: 4px solid var(--ember);
+      padding: 16px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--neutral-900);
+      line-height: 1.5;
+    }
+
+    /* Controls & Footer Navigation */
+    .nav-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 16px 4%;
+      background: white;
+      border-top: 1px solid var(--neutral-200);
+    }
+
+    .btn-nav {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-nav:hover {
+      background: var(--primary-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-nav:disabled {
+      background: var(--neutral-200);
+      color: var(--neutral-600);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 12px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--neutral-200);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .dot.active {
+      background: var(--ember);
+      transform: scale(1.2);
+    }
+
+    .page-indicator {
+      font-size: 14px;
+      color: var(--neutral-600);
+      font-weight: 500;
+    }
+
+    /* Key visual styles */
+    .badge-success {
+      background: #D1FAE5;
+      color: #065F46;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Presentation Deck -->
+  <div class="deck-container">
+
+    <!-- Slide 1 -->
+    <div class="slide-wrapper active" id="slide-1">
+      <div class="slide-accent"></div>
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h1>KLS ERP: Redefining B2B Chemical ERP</h1>
+          <h2>Slide 1: The Vision</h2>
+        </div>
+        <div class="logo-badge">KLS</div>
+      </div>
+      <div class="grid-2">
+        <div class="content-left">
+          <p class="lead-text"><strong>A high-performance catalogue, compliance engine, and quotation platform tailored for chemical distributors.</strong></p>
+          <ul class="bullet-list">
+            <li><strong>The Industry Challenge</strong>: Chemical distribution is bogged down by manual document preparation, complex regulatory requirements (SDS/COA), and delayed quotation turnarounds.</li>
+            <li><strong>The Solution</strong>: An integrated ERP that combines a modern storefront with automated regulatory PDF rendering, AI demand insights, and real-time messaging pipelines.</li>
+          </ul>
+          <div class="alert-banner">
+            <strong>Design Philosophy</strong>: Engineered with a clean, high-contrast visual system using custom brand tokens (Ink steel-blue and burnt-orange ember highlights).
+          </div>
+        </div>
+        <div class="screenshot-container">
+          <img src="file:///C:/Users/jangi/.gemini/antigravity/brain/58540f82-4e74-4b58-9958-3c4cf63e6aca/media__1781460476936.png" alt="Storefront Landing Page">
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide-wrapper" id="slide-2">
+      <div class="slide-accent"></div>
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h1>Automating Compliance & Documents</h1>
+          <h2>Slide 2: The Core Game-Changers</h2>
+        </div>
+        <div class="logo-badge">KLS</div>
+      </div>
+      <div class="grid-2-top">
+        <div class="content-left">
+          <ul class="bullet-list">
+            <li><strong>Excel Upload to COA PDF</strong>: Parses raw spreadsheets and automatically formats elegant Certificate of Analysis PDFs in seconds.</li>
+            <li><strong>Dynamic SDS Compliance</strong>: Automatically syncs hazard statements, transport codes, and storage instructions in compliant format.</li>
+            <li><strong>Instant Verification</strong>: Immediate interactive PDF rendering directly within the browser application.</li>
+          </ul>
+          <div class="alert-banner" style="margin-top: 20px;">
+            <strong>Zero Copy-Paste</strong>: The manual extraction of specs from lab notebooks is replaced with a single drag-and-drop.
+          </div>
+        </div>
+        <div class="screenshot-container">
+          <img src="file:///C:/Users/jangi/.gemini/antigravity/brain/58540f82-4e74-4b58-9958-3c4cf63e6aca/media__1781460500347.png" alt="COA PDF Generation Preview">
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide-wrapper" id="slide-3">
+      <div class="slide-accent"></div>
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h1>Gmail & WhatsApp Integrations</h1>
+          <h2>Slide 3: Omni-Channel Notifications</h2>
+        </div>
+        <div class="logo-badge">KLS</div>
+      </div>
+      <div class="grid-2">
+        <div class="content-left">
+          <p class="lead-text"><strong>Closing sales faster by delivering instant notifications directly where customers are active.</strong></p>
+          <ul class="bullet-list">
+            <li><strong>Automated Gmail Dispatch</strong>: Customers receive a beautifully branded HTML email quotation summary immediately after cart submission, complete with direct click-to-call sales buttons.</li>
+            <li><strong>WhatsApp Instant Messaging</strong>: Real-time quotation notifications sent automatically to customer mobile devices using secure Twilio APIs.</li>
+          </ul>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; height: 100%; align-items: center;">
+          <div class="screenshot-container" style="height: 320px;">
+            <img src="file:///C:/Users/jangi/.gemini/antigravity/brain/58540f82-4e74-4b58-9958-3c4cf63e6aca/media__1781460644253.png" alt="Gmail Notification Layout">
+          </div>
+          <div class="screenshot-container" style="height: 320px;">
+            <img src="file:///C:/Users/jangi/.gemini/antigravity/brain/58540f82-4e74-4b58-9958-3c4cf63e6aca/media__1781460659423.png" alt="WhatsApp Notification Layout">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide-wrapper" id="slide-4">
+      <div class="slide-accent"></div>
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h1>Tailored Stakeholder Experiences</h1>
+          <h2>Slide 4: Effortless Workflows</h2>
+        </div>
+        <div class="logo-badge">KLS</div>
+      </div>
+      <div class="grid-2-top">
+        <div class="content-left">
+          <ul class="bullet-list">
+            <li><strong>For B2B Customers</strong>: Find chemicals instantly using advanced filters and molecular formula cards. Request quotes in 3 clicks.</li>
+            <li><strong>For Inventory Employees</strong>: Draft chemical profiles, log specifications, and upload test reports with a modern stepper form.</li>
+            <li><strong>For Administrators</strong>: Review submitted catalog items, SDS sheets, and COAs via a side-by-side Diff Viewer to ensure quality control.</li>
+          </ul>
+        </div>
+        <div class="screenshot-container">
+          <img src="file:///C:/Users/jangi/.gemini/antigravity/brain/58540f82-4e74-4b58-9958-3c4cf63e6aca/media__1781460491046.png" alt="Chemical Profile View">
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide-wrapper" id="slide-5">
+      <div class="slide-accent"></div>
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h1>Smart Analytics & Business Intelligence</h1>
+          <h2>Slide 5: Data-Driven AI Insights</h2>
+        </div>
+        <div class="logo-badge">KLS</div>
+      </div>
+      <div class="grid-2-top">
+        <div class="content-left">
+          <ul class="bullet-list">
+            <li><strong>AI-Generated Summaries</strong>: Leverage natural language demand summaries detailing weekly activity and sales projections.</li>
+            <li><strong>Top Products Tracking</strong>: Instantly monitor fast-moving items, active buyers, and catalog coverage metrics.</li>
+            <li><strong>Quote Drill-Down</strong>: Follow lead statuses from initial inquiry through converted sales.</li>
+            <li><strong>Real-time Alerts</strong>: Native warning systems highlighting unresolved approvals or delivery anomalies.</li>
+          </ul>
+        </div>
+        <div class="screenshot-container">
+          <img src="file:///C:/Users/jangi/.gemini/antigravity/brain/58540f82-4e74-4b58-9958-3c4cf63e6aca/media__1781460445053.png" alt="Demand Dashboard View">
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide-wrapper" id="slide-6">
+      <div class="slide-accent"></div>
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h1>Why KLS ERP is a High-Yield Investment</h1>
+          <h2>Slide 6: The Value Proposition</h2>
+        </div>
+        <div class="logo-badge">KLS</div>
+      </div>
+      <div class="grid-2-top">
+        <div class="content-left">
+          <ul class="bullet-list">
+            <li><strong>Zero Regulatory Liability</strong>: Excel-to-PDF auto-parsing and dynamic SDS templates eliminate typo-induced compliance issues.</li>
+            <li><strong>Accelerate Sales Velocity</strong>: Instant automated WhatsApp and email quote replies reduce response times from days to seconds.</li>
+            <li><strong>Modernize Brand Image</strong>: Rebrandable Technical-UI framework that builds trust and signals premium quality to enterprise buyers.</li>
+          </ul>
+          <div class="alert-banner" style="margin-top: 24px;">
+            <strong>Decision Maker Value</strong>: By automating compliance, you free up sales engineers and eliminate friction from the buying process.
+          </div>
+        </div>
+        <div class="screenshot-container">
+          <img src="file:///C:/Users/jangi/.gemini/antigravity/brain/58540f82-4e74-4b58-9958-3c4cf63e6aca/media__1781460453559.png" alt="Quotation Requests List">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="nav-controls">
+    <button class="btn-nav" id="btn-prev" onclick="changeSlide(-1)" disabled>Previous</button>
+    
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+      <div class="progress-dots" id="dots-container"></div>
+      <div class="page-indicator" id="indicator">Slide 1 of 6</div>
+    </div>
+    
+    <button class="btn-nav" id="btn-next" onclick="changeSlide(1)">Next</button>
+  </div>
+
+  <script>
+    const TOTAL_SLIDES = 6;
+    let currentSlide = 1;
+
+    // Initialize dots
+    const dotsContainer = document.getElementById('dots-container');
+    for (let i = 1; i <= TOTAL_SLIDES; i++) {
+      const dot = document.createElement('div');
+      dot.className = `dot ${i === 1 ? 'active' : ''}`;
+      dot.onclick = () => showSlide(i);
+      dotsContainer.appendChild(dot);
+    }
+
+    function showSlide(slideNum) {
+      document.querySelector('.slide-wrapper.active').classList.remove('active');
+      document.getElementById(`slide-${slideNum}`).classList.add('active');
+      
+      document.querySelector('.dot.active').classList.remove('active');
+      dotsContainer.children[slideNum - 1].classList.add('active');
+
+      currentSlide = slideNum;
+      document.getElementById('indicator').textContent = `Slide ${currentSlide} of ${TOTAL_SLIDES}`;
+
+      document.getElementById('btn-prev').disabled = currentSlide === 1;
+      document.getElementById('btn-next').disabled = currentSlide === TOTAL_SLIDES;
+    }
+
+    function changeSlide(direction) {
+      let target = currentSlide + direction;
+      if (target >= 1 && target <= TOTAL_SLIDES) {
+        showSlide(target);
+      }
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        changeSlide(1);
+      } else if (e.key === 'ArrowLeft') {
+        changeSlide(-1);
+      }
+    });
+  </script>
+</body>
+</html>
